@@ -30,3 +30,13 @@ export async function getHomeData(): Promise<{
     return { services: defaultServices, projects: defaultProjects, packs: defaultPacks };
   }
 }
+
+// Portrait de la section « Qui suis-je ? » (null tant qu'aucune photo n'a été envoyée).
+export async function getProfilePhoto(): Promise<string | null> {
+  try {
+    const profile = await prisma.profile.findUnique({ where: { id: 1 } });
+    return profile?.photo ?? null;
+  } catch {
+    return null;
+  }
+}

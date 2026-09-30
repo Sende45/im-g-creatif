@@ -55,7 +55,8 @@ export const ModelName = {
   Project: 'Project',
   Pack: 'Pack',
   ContactMessage: 'ContactMessage',
-  Admin: 'Admin'
+  Admin: 'Admin',
+  Profile: 'Profile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -134,6 +135,15 @@ export const AdminScalarFieldEnum = {
 } as const
 
 export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
+
+
+export const ProfileScalarFieldEnum = {
+  id: 'id',
+  photo: 'photo',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
 export const SortOrder = {

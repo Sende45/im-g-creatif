@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { ExternalLink, Images, LayoutDashboard, LogOut, Mail } from "lucide-react";
+import { ExternalLink, Images, LayoutDashboard, LogOut, Mail, UserRound } from "lucide-react";
 import { logout } from "@/app/admin/actions";
 import { requireAdmin } from "@/lib/auth";
 
 const menu = [
   { href: "/admin", label: "Tableau de bord", icon: LayoutDashboard },
   { href: "/admin/creations", label: "Créations", icon: Images },
+  { href: "/admin/profil", label: "Qui suis-je ?", icon: UserRound },
   { href: "/admin/messages", label: "Demandes", icon: Mail },
 ];
 
@@ -36,6 +37,3 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     </div>
   );
 }
-
-
-

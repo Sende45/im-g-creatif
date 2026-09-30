@@ -58,3 +58,9 @@ model Admin {
 
 
 
+// Profil affiché sur la page « Qui suis-je ? » (une seule ligne, id = 1)
+model Profile {
+  id        Int      @id @default(1)
+  photo     String?  // URL Cloudinary du portrait
+  updatedAt DateTime @updatedAt
+}

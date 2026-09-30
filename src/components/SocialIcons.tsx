@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { socialLinks } from "@/lib/content";
 
-type Props = { variant?: "light" | "dark" };
+type Network = keyof typeof socialLinks;
+type Props = { variant?: "light" | "dark"; networks?: Network[] };
 
 // Lucide ne fournit plus les logos de marques : on utilise de petits SVG.
 const icons = {
@@ -11,12 +12,26 @@ const icons = {
   instagram: (
     <path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4Zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm4.9-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0ZM12 4.6c2.4 0 2.7 0 3.6.1 2.4.1 3.5 1.2 3.6 3.6.1.9.1 1.2.1 3.7s0 2.7-.1 3.6c-.1 2.4-1.2 3.5-3.6 3.6-.9.1-1.2.1-3.6.1s-2.7 0-3.7-.1c-2.4-.1-3.5-1.2-3.6-3.6-.1-.9-.1-1.2-.1-3.6s0-2.8.1-3.7C4.8 5.9 5.9 4.8 8.3 4.7c.9-.1 1.3-.1 3.7-.1ZM12 3c-2.4 0-2.8 0-3.7.1C5 3.2 3.2 5 3.1 8.3 3 9.2 3 9.6 3 12s0 2.8.1 3.7c.1 3.3 1.9 5.1 5.2 5.2.9.1 1.3.1 3.7.1s2.8 0 3.7-.1c3.3-.1 5.1-1.9 5.2-5.2.1-.9.1-1.3.1-3.7s0-2.8-.1-3.7C20.8 5 19 3.2 15.7 3.1 14.8 3 14.4 3 12 3Z" />
   ),
+  facebook: (
+    <path d="M13.4 21v-7.6h2.6l.4-3h-3V8.5c0-.9.2-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.7v3h2.6V21h3.1Z" />
+  ),
+  mail: (
+    <path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm8 7.2L5 7.6V17h14V7.6l-7 4.6ZM6.2 7 12 10.8 17.8 7H6.2Z" />
+  ),
   behance: (
     <path d="M9.2 11.4c.9-.4 1.4-1.1 1.4-2.1 0-2-1.5-2.6-3.3-2.6H2.5v10.6h4.9c1.9 0 3.6-.9 3.6-3 0-1.3-.6-2.3-1.8-2.9ZM4.6 8.5h2.1c.8 0 1.5.2 1.5 1.1s-.6 1.2-1.4 1.2H4.6V8.5Zm2.3 7.1H4.6v-2.9h2.4c1 0 1.6.4 1.6 1.4s-.7 1.5-1.7 1.5Zm10.4-5.9c-2.4 0-4 1.8-4 4.1 0 2.4 1.5 4.1 4 4.1 1.9 0 3.1-.8 3.7-2.6h-1.9c-.2.7-1.1 1-1.8 1-1.3 0-1.9-.7-1.9-1.9h5.7c.1-2.5-1.3-4.7-3.8-4.7Zm-1.9 3.3c.1-1 .7-1.7 1.8-1.7s1.6.6 1.7 1.7h-3.5ZM15.4 7h4.5v1.2h-4.5V7Z" />
   ),
 };
 
-export default function SocialIcons({ variant = "light" }: Props) {
+const labels: Record<Network, string> = {
+  linkedin: "LinkedIn",
+  instagram: "Instagram",
+  facebook: "Facebook",
+  behance: "Behance",
+  mail: "M'écrire un e-mail",
+};
+
+export default function SocialIcons({ variant = "light", networks = ["linkedin", "instagram", "behance"] }: Props) {
   const style =
     variant === "light"
       ? "bg-white text-bordeaux-dark hover:bg-rose-soft"
@@ -24,14 +39,13 @@ export default function SocialIcons({ variant = "light" }: Props) {
 
   return (
     <div className="flex items-center gap-3">
-      {(Object.keys(icons) as (keyof typeof icons)[]).map((name) => (
+      {networks.map((name) => (
         <Link
           key={name}
           href={socialLinks[name]}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={name}
-          className={`grid size-8 place-items-center rounded-full transition ${style}`}
+          {...(name === "mail" ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+          aria-label={labels[name]}
+          className={`grid size-8 place-items-center rounded-full transition hover:-translate-y-0.5 ${style}`}
         >
           <svg viewBox="0 0 24 24" className="size-4" fill="currentColor">
             {icons[name]}
@@ -41,6 +55,3 @@ export default function SocialIcons({ variant = "light" }: Props) {
     </div>
   );
 }
-
-
-
