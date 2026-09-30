@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  icon        String   // nom de l'icône Lucide : megaphone, fingerprint, lightbulb, eye, message, file
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  title     String   // ex : Branding
+  category  String   // ex : Identité visuelle
+  image     String?  // ex : /images/portfolio/branding.jpg
+  featured  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Pack {
+  id       Int     @id @default(autoincrement())
+  name     String
+  tagline  String
+  price    Int     // en euros
+  icon     String  // lightbulb, star, gem
+  popular  Boolean @default(false)
+  order    Int     @default(0)
+}
+
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  pack      String?
+  message   String
+  status    String   @default("nouveau") // nouveau, en_cours, traite
+  note      String?
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+
+
+
