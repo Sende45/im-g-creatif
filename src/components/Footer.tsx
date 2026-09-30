@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NavLink from "@/components/NavLink";
 import Image from "next/image";
 import SocialIcons from "@/components/SocialIcons";
 import { navLinks } from "@/lib/content";
@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="bg-rose-pale">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 px-4 py-6 sm:px-6">
-        <Link href="/#accueil" aria-label="Retour à l'accueil">
+        <NavLink href="/#accueil" aria-label="Retour à l'accueil">
           <Image
             src={LOGO_URL}
             alt="Logo IM G Créatif"
@@ -18,12 +18,12 @@ export default function Footer() {
             unoptimized
             className="h-10 w-auto object-contain"
           />
-        </Link>
+        </NavLink>
         <nav className="flex flex-wrap gap-6 text-sm">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-bordeaux">
+            <NavLink key={link.href} href={link.href} className="hover:text-bordeaux">
               {link.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
         <div className="flex items-center gap-4">
